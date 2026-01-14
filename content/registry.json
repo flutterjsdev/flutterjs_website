@@ -1,0 +1,36 @@
+{
+  "packages": [
+    {
+      "name": "http",
+      "flutterjs_package": "flutterjs_http",
+      "description": "A composable, multi-platform, Promise-based HTTP client.",
+      "version": "1.0.0",
+      "metrics": {
+        "downloads": 120,
+        "likes": 5
+      },
+      "mapping": {
+        "original_package": "http",
+        "replacement_package": "flutterjs_http"
+      }
+    },
+    {
+      "name": "google_fonts",
+      "flutterjs_package": "flutterjs_google_fonts",
+      "description": "FlutterJS implementation of Google Fonts.",
+      "version": "0.1.0",
+      "metrics": {
+        "downloads": 45,
+        "likes": 2
+      },
+      "mapping": {
+        "original_package": "google_fonts",
+        "replacement_package": "flutterjs_google_fonts"
+      }
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-01-14T21:45:00Z",
+    "total_packages": 2
+  }
+}
