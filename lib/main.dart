@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterjs_seo/flutterjs_seo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,10 +32,17 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   int _counter = 0;
+  String _seoTitle = "FlutterJS - Build Native Web Apps [Checking]";
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
     });
   }
 
@@ -59,12 +67,24 @@ class _LandingPageState extends State<LandingPage> {
         child: Column(
           children: [
             // Hero Section
+
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
               color: const Color(0xFFEEF2FF), // Light Indigo/Blue
               child: Column(
                 children: [
+                  Seo(
+                    title: _seoTitle,
+                    debug: true,
+                    meta: {
+                      "description":
+                          "Tiny bundles, SEO friendly, and real HTML rendering.",
+                      "keywords": "flutter, web, seo, fast",
+                      "og:title": "FlutterJS - Native Web Apps"
+                    },
+                    child: SizedBox.shrink(),
+                  ),
                   const Icon(Icons.star, size: 64, color: Colors.indigo),
                   const SizedBox(height: 24),
                   const Text(
@@ -102,6 +122,61 @@ class _LandingPageState extends State<LandingPage> {
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
+                  const SizedBox(height: 24),
+                  // SEO Verification Controls
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.indigo.withOpacity(0.2)),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "SEO Verification",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "Current Title: $_seoTitle",
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 8,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _seoTitle = "Home | FlutterJS";
+                                });
+                              },
+                              child: const Text("Set Title: Home"),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _seoTitle =
+                                      "Verified @ ${DateTime.now().second}s";
+                                });
+                              },
+                              child: const Text("Set Random Title"),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "Open Browser Console (F12) to see verification logs.",
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -125,7 +200,7 @@ class _LandingPageState extends State<LandingPage> {
                     alignment: WrapAlignment.center,
                     children: [
                       _buildFeatureCard(
-                        Icons.add, // TEST: Swapped star for add
+                        Icons.star,
                         'Blazing Fast',
                         'Optimized for instant load times and 60fps performance.',
                         Colors.orange,
@@ -203,10 +278,21 @@ class _LandingPageState extends State<LandingPage> {
                               color: Colors.indigo),
                         ),
                         const SizedBox(height: 24),
-                        FloatingActionButton(
-                          onPressed: _incrementCounter,
-                          backgroundColor: Colors.indigo,
-                          child: const Icon(Icons.add, color: Colors.white),
+                        Row(
+                          children: [
+                            FloatingActionButton(
+                              onPressed: () => _incrementCounter(),
+                              backgroundColor: Colors.indigo,
+                              child: const Icon(Icons.add, color: Colors.white),
+                            ),
+                            const SizedBox(width: 16),
+                            FloatingActionButton(
+                              onPressed: () => _decrementCounter(),
+                              backgroundColor: Colors.indigo,
+                              child:
+                                  const Icon(Icons.remove, color: Colors.white),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -261,7 +347,6 @@ class _LandingPageState extends State<LandingPage> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
               shape: BoxShape.circle,
@@ -285,3 +370,5 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
+
+// Force rebuild - very final verification

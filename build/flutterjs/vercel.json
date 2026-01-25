@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "^/node_modules/(.*)", "dest": "/node_modules/$1" },
+    { "src": "^/assets/(.*)", "dest": "/dist/assets/$1" },
+    { "src": "^/(.*)", "dest": "/dist/$1" },
+    { "handle": "filesystem" },
+    { "src": "^/(.*)", "dest": "/dist/index.html" }
+  ]
+}

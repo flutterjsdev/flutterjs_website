@@ -67,6 +67,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutterjs_seo:
+    dependency: "direct main"
+    description:
+      path: "../../packages/flutterjs_seo"
+      relative: true
+    source: path
+    version: "0.1.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -201,5 +208,5 @@ packages:
     source: hosted
     version: "15.0.2"
 sdks:
-  dart: ">=3.8.0 <4.0.0"
+  dart: ">=3.11.0-113.0.dev <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

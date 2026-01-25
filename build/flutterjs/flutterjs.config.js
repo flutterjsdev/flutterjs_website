@@ -122,6 +122,9 @@ export default {
     '@flutterjs/painting': {
       path: '..\..\..\packages\flutterjs_painting\flutterjs_painting'
     },
+    '@flutterjs/seo': {
+      path: '..\..\..\packages\flutterjs_seo\flutterjs_seo'
+    },
     '@flutterjs/services': {
       path: '..\..\..\packages\flutterjs_services\flutterjs_services'
     },

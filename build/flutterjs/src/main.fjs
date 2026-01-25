@@ -1,7 +1,7 @@
 // ============================================================================
 // Generated from Dart IR - Advanced Code Generation (Phase 10)
 // WARNING: Do not edit manually - changes will be lost
-// Generated at: 2026-01-23 00:05:21.282623
+// Generated at: 2026-01-25 22:06:54.944495
 //
 // Smart Features Enabled:
 // ✓ Intelligent import detection
@@ -31,6 +31,7 @@ import {
   EdgeInsets,
   ElevatedButton,
   FloatingActionButton,
+  FontStyle,
   FontWeight,
   Icon,
   IconButton,
@@ -43,6 +44,7 @@ import {
   Offset,
   Padding,
   RoundedRectangleBorder,
+  Row,
   Scaffold,
   SingleChildScrollView,
   SizedBox,
@@ -59,6 +61,26 @@ import {
   WrapAlignment,
   runApp,
 } from '@flutterjs/material';
+import * as _import_0 from './package:flutterjs_seo/flutterjs_seo.fjs';
+
+// Merging local imports for symbol resolution
+const __merged_imports = Object.assign({}, _import_0);
+function _filterNamespace(ns, show, hide) {
+  let res = Object.assign({}, ns);
+  if (show && show.length > 0) {
+    const newRes = {};
+    show.forEach(k => { if (res[k]) newRes[k] = res[k]; });
+    res = newRes;
+  }
+  if (hide && hide.length > 0) {
+    hide.forEach(k => delete res[k]);
+  }
+  return res;
+}
+
+const {
+  Seo,
+} = __merged_imports;
 
 
 // ===== RUNTIME HELPERS (2) =====
@@ -127,6 +149,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State {
   _counter = 0;
+  _seoTitle = "FlutterJS - Build Native Web Apps [Checking]";
 
   /**
 
@@ -136,12 +159,19 @@ class _LandingPageState extends State {
   }
 
   /**
+
+   */
+  _decrementCounter() {
+  this.setState(() => this._counter--);
+  }
+
+  /**
    * @param {BuildContext} [context]
    * @returns {Widget}
    */
   // @override
   build(context = undefined) {
-  return new Scaffold({ appBar: new AppBar({ title: new Text("FlutterJS"), backgroundColor: Colors.white, foregroundColor: Colors.indigo, elevation: 1, actions: [new IconButton({ icon: new Icon(Icons.search), onPressed: () => undefined }), new Padding({ padding: EdgeInsets.only({ right: 16.0 }), child: new IconButton({ icon: new Icon(Icons.settings), onPressed: () => undefined }) })] }), body: new SingleChildScrollView({ child: new Column({ children: [new Container({ width: double.infinity, padding: EdgeInsets.symmetric({ vertical: 80, horizontal: 20 }), color: new Color(4293849855), child: new Column({ children: [new Icon(Icons.star, { size: 64, color: Colors.indigo }), new SizedBox({ height: 24 }), new Text("Build Web Apps with FlutterJS", { textAlign: TextAlign.center, style: new TextStyle({ fontSize: 36, fontWeight: FontWeight.bold, color: Colors.indigo, height: 1.2 }) }), new SizedBox({ height: 24 }), new Text("Tiny bundles. SEO friendly. Real HTML rendering.\nThe power of Flutter, now native to the web.", { textAlign: TextAlign.center, style: new TextStyle({ fontSize: 18, color: Colors.black54, height: 1.5 }) }), new SizedBox({ height: 48 }), new ElevatedButton({ onPressed: () => undefined, style: ElevatedButton.styleFrom({ backgroundColor: Colors.indigo, foregroundColor: Colors.white, padding: EdgeInsets.symmetric({ horizontal: 48, vertical: 24 }), shape: new RoundedRectangleBorder({ borderRadius: BorderRadius.circular(30) }) }), child: new Text("GET STARTED", { style: new TextStyle({ fontSize: 16, fontWeight: FontWeight.bold }) }) })] }) }), new SizedBox({ height: 60 }), new Padding({ padding: EdgeInsets.symmetric({ horizontal: 20 }), child: new Column({ children: [new Text("Why FlutterJS?", { style: new TextStyle({ fontSize: 28, fontWeight: FontWeight.bold }) }), new SizedBox({ height: 40 }), new Wrap({ spacing: 30, runSpacing: 30, alignment: WrapAlignment.center, children: [this._buildFeatureCard(Icons.add, "Blazing Fast", "Optimized for instant load times and 60fps performance.", Colors.orange), this._buildFeatureCard(Icons.search, "SEO Ready", "Content is rendered as real HTML, fully indexable by Google.", Colors.green), this._buildFeatureCard(Icons.download, "Tiny Bundles", "Minimal footprint starting at just 50KB gzipped.", Colors.blue)] })] }) }), new SizedBox({ height: 80 }), new Container({ width: double.infinity, padding: EdgeInsets.all(60), color: new Color(4294572795), child: new Column({ children: [new Text("Interactive Demo", { style: new TextStyle({ fontSize: 28, fontWeight: FontWeight.bold }) }), new SizedBox({ height: 16 }), new Text("This is a real Flutter widget running independently.", { style: new TextStyle({ fontSize: 16, color: Colors.black54 }) }), new SizedBox({ height: 40 }), new Container({ width: 320, padding: EdgeInsets.all(32), decoration: new BoxDecoration({ color: Colors.white, borderRadius: BorderRadius.circular(24), boxShadow: [new BoxShadow({ color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: new Offset(0, 10) })] }), child: new Column({ mainAxisSize: MainAxisSize.min, children: [new Text("Counter App", { style: new TextStyle({ fontSize: 20, fontWeight: FontWeight.w500 }) }), new Divider({ height: 40 }), new Text("Button pushed:", { style: new TextStyle({ color: Colors.grey }) }), new SizedBox({ height: 8 }), new Text(`${this._counter}`, { style: new TextStyle({ fontSize: 72, fontWeight: FontWeight.bold, color: Colors.indigo }) }), new SizedBox({ height: 24 }), new FloatingActionButton({ onPressed: this._incrementCounter, backgroundColor: Colors.indigo, child: new Icon(Icons.add, { color: Colors.white }) })] }) })] }) }), new Container({ width: double.infinity, padding: EdgeInsets.symmetric({ vertical: 32 }), color: new Color(4279310375), child: new Column({ children: [new Text("FlutterJS", { style: new TextStyle({ fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white }) }), new SizedBox({ height: 8 }), new Text("© 2026 FlutterJS Team. All rights reserved.", { style: new TextStyle({ color: Colors.grey }) })] }) })] }) }) });
+  return new Scaffold({ appBar: new AppBar({ title: new Text("FlutterJS"), backgroundColor: Colors.white, foregroundColor: Colors.indigo, elevation: 1, actions: [new IconButton({ icon: new Icon(Icons.search), onPressed: () => undefined }), new Padding({ padding: EdgeInsets.only({ right: 16.0 }), child: new IconButton({ icon: new Icon(Icons.settings), onPressed: () => undefined }) })] }), body: new SingleChildScrollView({ child: new Column({ children: [new Container({ width: double.infinity, padding: EdgeInsets.symmetric({ vertical: 80, horizontal: 20 }), color: new Color(4293849855), child: new Column({ children: [new Seo({ title: this._seoTitle, debug: true, meta: {description: "Tiny bundles, SEO friendly, and real HTML rendering.", keywords: "flutter, web, seo, fast", "og:title": "FlutterJS - Native Web Apps"}, child: SizedBox.shrink() }), new Icon(Icons.star, { size: 64, color: Colors.indigo }), new SizedBox({ height: 24 }), new Text("Build Web Apps with FlutterJS", { textAlign: TextAlign.center, style: new TextStyle({ fontSize: 36, fontWeight: FontWeight.bold, color: Colors.indigo, height: 1.2 }) }), new SizedBox({ height: 24 }), new Text("Tiny bundles. SEO friendly. Real HTML rendering.\nThe power of Flutter, now native to the web.", { textAlign: TextAlign.center, style: new TextStyle({ fontSize: 18, color: Colors.black54, height: 1.5 }) }), new SizedBox({ height: 48 }), new ElevatedButton({ onPressed: () => undefined, style: ElevatedButton.styleFrom({ backgroundColor: Colors.indigo, foregroundColor: Colors.white, padding: EdgeInsets.symmetric({ horizontal: 48, vertical: 24 }), shape: new RoundedRectangleBorder({ borderRadius: BorderRadius.circular(30) }) }), child: new Text("GET STARTED", { style: new TextStyle({ fontSize: 16, fontWeight: FontWeight.bold }) }) }), new SizedBox({ height: 24 }), new Container({ padding: EdgeInsets.all(16), decoration: new BoxDecoration({ color: Colors.white.withOpacity(0.5), borderRadius: BorderRadius.circular(12), border: Border.all({ color: Colors.indigo.withOpacity(0.2) }) }), child: new Column({ children: [new Text("SEO Verification", { style: new TextStyle({ fontSize: 14, fontWeight: FontWeight.bold }) }), new SizedBox({ height: 8 }), new Text(`Current Title: ${this._seoTitle}`, { style: new TextStyle({ fontSize: 12 }) }), new SizedBox({ height: 12 }), new Wrap({ spacing: 8, children: [new ElevatedButton({ onPressed: () => this.setState(() => this._seoTitle = "Home | FlutterJS"), child: new Text("Set Title: Home") }), new ElevatedButton({ onPressed: () => this.setState(() => this._seoTitle = (`Verified @ ${DateTime.now().second}s`)), child: new Text("Set Random Title") })] }), new SizedBox({ height: 8 }), new Text("Open Browser Console (F12) to see verification logs.", { style: new TextStyle({ fontSize: 10, fontStyle: FontStyle.italic, color: Colors.grey }) })] }) })] }) }), new SizedBox({ height: 60 }), new Padding({ padding: EdgeInsets.symmetric({ horizontal: 20 }), child: new Column({ children: [new Text("Why FlutterJS?", { style: new TextStyle({ fontSize: 28, fontWeight: FontWeight.bold }) }), new SizedBox({ height: 40 }), new Wrap({ spacing: 30, runSpacing: 30, alignment: WrapAlignment.center, children: [this._buildFeatureCard(Icons.star, "Blazing Fast", "Optimized for instant load times and 60fps performance.", Colors.orange), this._buildFeatureCard(Icons.search, "SEO Ready", "Content is rendered as real HTML, fully indexable by Google.", Colors.green), this._buildFeatureCard(Icons.download, "Tiny Bundles", "Minimal footprint starting at just 50KB gzipped.", Colors.blue)] })] }) }), new SizedBox({ height: 80 }), new Container({ width: double.infinity, padding: EdgeInsets.all(60), color: new Color(4294572795), child: new Column({ children: [new Text("Interactive Demo", { style: new TextStyle({ fontSize: 28, fontWeight: FontWeight.bold }) }), new SizedBox({ height: 16 }), new Text("This is a real Flutter widget running independently.", { style: new TextStyle({ fontSize: 16, color: Colors.black54 }) }), new SizedBox({ height: 40 }), new Container({ width: 320, padding: EdgeInsets.all(32), decoration: new BoxDecoration({ color: Colors.white, borderRadius: BorderRadius.circular(24), boxShadow: [new BoxShadow({ color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: new Offset(0, 10) })] }), child: new Column({ mainAxisSize: MainAxisSize.min, children: [new Text("Counter App", { style: new TextStyle({ fontSize: 20, fontWeight: FontWeight.w500 }) }), new Divider({ height: 40 }), new Text("Button pushed:", { style: new TextStyle({ color: Colors.grey }) }), new SizedBox({ height: 8 }), new Text(`${this._counter}`, { style: new TextStyle({ fontSize: 72, fontWeight: FontWeight.bold, color: Colors.indigo }) }), new SizedBox({ height: 24 }), new Row({ children: [new FloatingActionButton({ onPressed: () => this._incrementCounter(), backgroundColor: Colors.indigo, child: new Icon(Icons.add, { color: Colors.white }) }), new SizedBox({ width: 16 }), new FloatingActionButton({ onPressed: () => this._decrementCounter(), backgroundColor: Colors.indigo, child: new Icon(Icons.remove, { color: Colors.white }) })] })] }) })] }) }), new Container({ width: double.infinity, padding: EdgeInsets.symmetric({ vertical: 32 }), color: new Color(4279310375), child: new Column({ children: [new Text("FlutterJS", { style: new TextStyle({ fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white }) }), new SizedBox({ height: 8 }), new Text("© 2026 FlutterJS Team. All rights reserved.", { style: new TextStyle({ color: Colors.grey }) })] }) })] }) }) });
   }
 
   /**
@@ -152,7 +182,7 @@ class _LandingPageState extends State {
    * @returns {Widget}
    */
   _buildFeatureCard(icon = undefined, title = undefined, description = undefined, color = undefined) {
-  return new Container({ width: 300, padding: EdgeInsets.all(30), decoration: new BoxDecoration({ color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all({ color: Colors.grey.withOpacity(0.1) }), boxShadow: [new BoxShadow({ color: Colors.black.withOpacity(0.04), blurRadius: 16, offset: new Offset(0, 4) })] }), child: new Column({ children: [new Container({ padding: EdgeInsets.all(16), decoration: new BoxDecoration({ color: color.withOpacity(0.1), shape: BoxShape.circle }), child: new Icon(icon, { size: 32, color: color }) }), new SizedBox({ height: 20 }), new Text(title, { style: new TextStyle({ fontSize: 20, fontWeight: FontWeight.bold }), textAlign: TextAlign.center }), new SizedBox({ height: 12 }), new Text(description, { textAlign: TextAlign.center, style: new TextStyle({ color: Colors.black.withOpacity(0.6), height: 1.5 }) })] }) });
+  return new Container({ width: 300, padding: EdgeInsets.all(30), decoration: new BoxDecoration({ color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all({ color: Colors.grey.withOpacity(0.1) }), boxShadow: [new BoxShadow({ color: Colors.black.withOpacity(0.04), blurRadius: 16, offset: new Offset(0, 4) })] }), child: new Column({ children: [new Container({ decoration: new BoxDecoration({ color: color.withOpacity(0.1), shape: BoxShape.circle }), child: new Icon(icon, { size: 32, color: color }) }), new SizedBox({ height: 20 }), new Text(title, { style: new TextStyle({ fontSize: 20, fontWeight: FontWeight.bold }), textAlign: TextAlign.center }), new SizedBox({ height: 12 }), new Text(description, { textAlign: TextAlign.center, style: new TextStyle({ color: Colors.black.withOpacity(0.6), height: 1.5 }) })] }) });
   }
 
 }
