@@ -2,107 +2,79 @@ import 'package:flutter/material.dart';
 import 'content_page.dart';
 
 class DocumentationPage extends StatelessWidget {
-  final VoidCallback onHomePressed;
-  final VoidCallback onDocsPressed;
-  final VoidCallback onShowcasePressed;
-  final VoidCallback onBlogPressed;
-
-  const DocumentationPage({
-    Key? key,
-    required this.onHomePressed,
-    required this.onDocsPressed,
-    required this.onShowcasePressed,
-    required this.onBlogPressed,
-  }) : super(key: key);
+  const DocumentationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ContentPage(
       title: 'Documentation',
-      onHomePressed: onHomePressed,
-      onDocsPressed: onDocsPressed,
-      onShowcasePressed: onShowcasePressed,
-      onBlogPressed: onBlogPressed,
+      seoTitle: 'Documentation - FlutterJS',
+      seoDescription:
+          'Get started with FlutterJS. Learn how to install, build, and deploy high-performance web applications using Dart.',
+      seoKeywords:
+          'flutterjs documentation, tutorial, guide, flutter web seo, installation',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSection('Installation', '''
-### Option 1: npm (Recommended)
-
-```bash
-npm install -g flutterjs
-```
-
-### Option 2: From Source
-
-```bash
-git clone https://github.com/flutterjsdev/flutterjs.git
-dart pub global activate --source path .
-```
-'''),
+          _buildSectionTitle('Installation'),
+          _buildCodeBlock('flutter pub add flutterjs'),
           const SizedBox(height: 32),
-          _buildSection('Quick Start', '''
-1. **Create a New Project**
-
-```bash
-flutterjs init my-app
-cd my-app
-```
-
-2. **Run Development Server**
-
-```bash
-flutterjs dev
-```
-
-3. **Build for Production**
-
-```bash
-flutterjs build
-```
-'''),
-          const SizedBox(height: 32),
-          _buildSection('Core Concepts', '''
-**FlutterJS** compiles your Flutter/Dart code to Semantic HTML + CSS.
-It bypasses the Canvas/WASM rendering engine used by standard Flutter Web, offering:
-
-- **SEO**: Content is visible to search engines.
-- **Performance**: Smaller bundles (~50KB vs 2MB+).
-- **Native Feel**: Selectable text, accessibility, and CSS styling.
-'''),
+          _buildSectionTitle('Getting Started'),
+          const Text(
+            'FlutterJS allows you to write standard Flutter code that compiles to lightweight, SEO-friendly JavaScript. Unlike Flutter Web (Canvas/WASM), FlutterJS renders to real HTML/DOM elements.',
+            style:
+                TextStyle(fontSize: 16, height: 1.6, color: Color(0xFF4B5563)),
+          ),
+          const SizedBox(height: 24),
+          _buildSubTitle('1. Create a new project'),
+          _buildCodeBlock('flutter create my_app\ncd my_app'),
+          const SizedBox(height: 24),
+          _buildSubTitle('2. Run with FlutterJS'),
+          _buildCodeBlock('flutterjs run --to-js --serve'),
         ],
       ),
     );
   }
 
-  Widget _buildSection(String title, String content) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title,
-            style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827))),
-        const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey.shade200),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          width: double.infinity,
-          child: Text(
-            content,
-            style: const TextStyle(
-                fontSize: 16,
-                height: 1.6,
-                color: Color(0xFF4B5563),
-                fontFamily: 'Courier New'),
-          ),
-        ),
-      ],
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Text(
+        title,
+        style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF111827)),
+      ),
+    );
+  }
+
+  Widget _buildSubTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Text(
+        title,
+        style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF374151)),
+      ),
+    );
+  }
+
+  Widget _buildCodeBlock(String code) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F2937),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        code,
+        style: const TextStyle(
+            fontFamily: 'Courier New', color: Color(0xFFE5E7EB), fontSize: 14),
+      ),
     );
   }
 }

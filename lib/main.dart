@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterjs_seo/flutterjs_seo.dart';
+import 'pages/documentation_page.dart';
+import 'pages/showcase_page.dart';
+import 'pages/blog_page.dart';
+import 'pages/about_page.dart';
+import 'pages/contact_page.dart';
+import 'pages/privacy_page.dart';
+import 'pages/terms_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +21,12 @@ class MyApp extends StatelessWidget {
       title: 'FlutterJS - Native Web Apps',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily:
-            'Inter', // Ensure Inter font is available or fallbacks gracefully
+        fontFamily: 'Inter',
         primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF4F46E5), // Indigo 600
+            backgroundColor: const Color(0xFF4F46E5),
             foregroundColor: Colors.white,
             elevation: 0,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -31,12 +37,22 @@ class MyApp extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: const Color(0xFF4B5563), // Gray 600
+            foregroundColor: const Color(0xFF4B5563),
             textStyle: const TextStyle(fontWeight: FontWeight.w500),
           ),
         ),
       ),
-      home: const LandingPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LandingPage(),
+        '/docs': (context) => const DocumentationPage(),
+        '/showcase': (context) => const ShowcasePage(),
+        '/blog': (context) => const BlogPage(),
+        '/about': (context) => const AboutPage(),
+        '/contact': (context) => const ContactPage(),
+        '/privacy': (context) => const PrivacyPage(),
+        '/terms': (context) => const TermsPage(),
+      },
     );
   }
 }
@@ -97,25 +113,39 @@ class _LandingPageState extends State<LandingPage> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.flutter_dash, color: Color(0xFF4F46E5), size: 32),
-          const SizedBox(width: 12),
-          const Text(
-            'FlutterJS',
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+          InkWell(
+            onTap: () => Navigator.pushNamed(context, '/'),
+            child: Row(
+              children: [
+                const Icon(Icons.flutter_dash,
+                    color: Color(0xFF4F46E5), size: 32),
+                const SizedBox(width: 12),
+                const Text(
+                  'FlutterJS',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF111827)),
+                ),
+              ],
+            ),
           ),
           const Spacer(),
           // Hide links on very small screens if needed, but for now we look fine
           if (MediaQuery.of(context).size.width > 700) ...[
-            TextButton(onPressed: () {}, child: const Text('Documentation')),
-            TextButton(onPressed: () {}, child: const Text('Showcase')),
-            TextButton(onPressed: () {}, child: const Text('Blog')),
+            TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/docs'),
+                child: const Text('Documentation')),
+            TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/showcase'),
+                child: const Text('Showcase')),
+            TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/blog'),
+                child: const Text('Blog')),
             const SizedBox(width: 16),
           ],
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, '/docs'),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF4F46E5),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -181,7 +211,7 @@ class _LandingPageState extends State<LandingPage> {
             alignment: WrapAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, '/docs'),
                 style: ElevatedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
@@ -538,24 +568,38 @@ class _CounterState extends State<Counter> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      Text("The native web framework\nfor Dart developers.",
+                      Text("Write Flutter. Ship the Web.",
                           style: TextStyle(
                               color: Colors.grey.shade400, height: 1.5)),
                     ],
                   ),
-                  const SizedBox(width: 32),
+                  const SizedBox(width: 24),
                   if (MediaQuery.of(context).size.width > 600)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildFooterColumn(
-                            "Product", ["Features", "Showcase", "Roadmap"]),
+                        _buildFooterLinksColumn("Product", [
+                          _FooterLink("Features", () {}),
+                          _FooterLink("Showcase",
+                              () => Navigator.pushNamed(context, '/showcase')),
+                          _FooterLink("Roadmap", () {}),
+                        ]),
                         const SizedBox(width: 48),
-                        _buildFooterColumn("Resources",
-                            ["Documentation", "API Reference", "Examples"]),
+                        _buildFooterLinksColumn("Resources", [
+                          _FooterLink("Documentation",
+                              () => Navigator.pushNamed(context, '/docs')),
+                          _FooterLink("API Reference", () {}),
+                          _FooterLink("Examples", () {}),
+                        ]),
                         const SizedBox(width: 48),
-                        _buildFooterColumn(
-                            "Company", ["About", "Blog", "Contact"]),
+                        _buildFooterLinksColumn("Company", [
+                          _FooterLink("About",
+                              () => Navigator.pushNamed(context, '/about')),
+                          _FooterLink("Blog",
+                              () => Navigator.pushNamed(context, '/blog')),
+                          _FooterLink("Contact",
+                              () => Navigator.pushNamed(context, '/contact')),
+                        ]),
                       ],
                     ),
                 ],
@@ -571,9 +615,17 @@ class _CounterState extends State<Counter> {
                           TextStyle(color: Colors.grey.shade500, fontSize: 14)),
                   Row(
                     children: [
-                      const Icon(Icons.code, color: Colors.grey, size: 16),
-                      const SizedBox(width: 32),
-                      const Icon(Icons.security, color: Colors.grey, size: 16),
+                      InkWell(
+                          onTap: () => Navigator.pushNamed(context, '/privacy'),
+                          child: const Text("Privacy",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 14))),
+                      const SizedBox(width: 16),
+                      InkWell(
+                          onTap: () => Navigator.pushNamed(context, '/terms'),
+                          child: const Text("Terms",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 14))),
                     ],
                   )
                 ],
@@ -585,7 +637,7 @@ class _CounterState extends State<Counter> {
     );
   }
 
-  Widget _buildFooterColumn(String title, List<String> links) {
+  Widget _buildFooterLinksColumn(String title, List<_FooterLink> links) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -597,10 +649,22 @@ class _CounterState extends State<Counter> {
         const SizedBox(height: 16),
         ...links.map((link) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: Text(link,
-                  style: TextStyle(color: Colors.grey.shade400, fontSize: 14)),
+              child: InkWell(
+                onTap: link.onTap,
+                child: Text(link.title,
+                    style:
+                        TextStyle(color: Colors.grey.shade400, fontSize: 14)),
+              ),
             )),
       ],
     );
   }
 }
+
+class _FooterLink {
+  final String title;
+  final VoidCallback onTap;
+
+  _FooterLink(this.title, this.onTap);
+}
+
