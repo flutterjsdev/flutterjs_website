@@ -1,19 +1,21 @@
 name: flutterjs_website
 description: "FlutterJS Landing Page - A modern website showcasing FlutterJS capabilities"
 publish_to: 'none'
+resolution: workspace
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ^3.5.0
 
 dependencies:
   flutter:
     sdk: flutter
-  # cupertino_icons: ^1.0.8
-  # google_fonts: ^6.1.0
   flutterjs_seo:
     path: ../../packages/flutterjs_seo
+  http: ^1.1.0
+  url_launcher: ^6.2.0
+
 
 
 

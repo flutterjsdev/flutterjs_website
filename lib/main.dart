@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterjs_seo/flutterjs_seo.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'pages/documentation_page.dart';
 import 'pages/showcase_page.dart';
 import 'pages/blog_page.dart';
@@ -66,6 +68,55 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   String _seoTitle = "FlutterJS - The Native Web Framework";
+
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      debugPrint('Could not launch $url');
+    }
+  }
+
+  Future<void> _testHttp() async {
+    try {
+      final response = await http
+          .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+      debugPrint('HTTP Response: ${response.statusCode}');
+      debugPrint('Body: ${response.body}');
+
+      // Simple visual feedback
+      if (mounted) {
+        showDialog(
+            context: context,
+            builder: (c) => AlertDialog(
+                  title: const Text('HTTP Test'),
+                  content: Text(
+                      'Status: ${response.statusCode}\nBody: ${response.body}'),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(c),
+                        child: const Text('OK'))
+                  ],
+                ));
+      }
+    } catch (e) {
+      debugPrint('HTTP Error: $e');
+      if (mounted) {
+        showDialog(
+            context: context,
+            builder: (c) => AlertDialog(
+                  title: const Text('HTTP Error'),
+                  content: Text(e.toString()),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(c),
+                        child: const Text('OK'))
+                  ],
+                ));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,17 +262,19 @@ class _LandingPageState extends State<LandingPage> {
             alignment: WrapAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, '/docs'),
+                onPressed: () =>
+                    _testHttp(), // Changed from navigation to HTTP test
                 style: ElevatedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                   textStyle: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                child: const Text('Start Building'),
+                child: const Text('Test HTTP Request'),
               ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () =>
+                    _launchUrl('https://github.com/flutterjsdev/flutterjs'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFF4B5563),
                   side: BorderSide(color: Colors.grey.shade300),
@@ -667,4 +720,3 @@ class _FooterLink {
 
   _FooterLink(this.title, this.onTap);
 }
-
