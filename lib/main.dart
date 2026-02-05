@@ -36,8 +36,9 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
             elevation: 0,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
             textStyle: const TextStyle(fontWeight: FontWeight.w600),
           ),
         ),
@@ -84,40 +85,46 @@ class _LandingPageState extends State<LandingPage> {
 
   Future<void> _testHttp() async {
     try {
-      final response = await http
-          .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+      final response = await http.get(
+        Uri.parse('https://jsonplaceholder.typicode.com/todos/1'),
+      );
       debugPrint('HTTP Response: ${response.statusCode}');
       debugPrint('Body: ${response.body}');
 
       // Simple visual feedback
       if (mounted) {
         showDialog(
-            context: context,
-            builder: (c) => AlertDialog(
-                  title: const Text('HTTP Test'),
-                  content: Text(
-                      'Status: ${response.statusCode}\nBody: ${response.body}'),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.pop(c),
-                        child: const Text('OK'))
-                  ],
-                ));
+          context: context,
+          builder: (c) => AlertDialog(
+            title: const Text('HTTP Test'),
+            content: Text(
+              'Status: ${response.statusCode}\nBody: ${response.body}',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(c),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
       }
     } catch (e) {
       debugPrint('HTTP Error: $e');
       if (mounted) {
         showDialog(
-            context: context,
-            builder: (c) => AlertDialog(
-                  title: const Text('HTTP Error'),
-                  content: Text(e.toString()),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.pop(c),
-                        child: const Text('OK'))
-                  ],
-                ));
+          context: context,
+          builder: (c) => AlertDialog(
+            title: const Text('HTTP Error'),
+            content: Text(e.toString()),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(c),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
       }
     }
   }
@@ -133,7 +140,7 @@ class _LandingPageState extends State<LandingPage> {
         "keywords": "flutter, web, javascript, framework, dart, seo",
         "og:title": "FlutterJS - The Native Web Framework",
         "og:description":
-            "The power of Flutter widgets, now compiled to lightweight, SEO-friendly JavaScript."
+            "The power of Flutter widgets, now compiled to lightweight, SEO-friendly JavaScript.",
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -172,15 +179,19 @@ class _LandingPageState extends State<LandingPage> {
             onTap: () => Navigator.pushNamed(context, '/'),
             child: Row(
               children: [
-                const Icon(Icons.flutter_dash,
-                    color: Color(0xFF4F46E5), size: 32),
+                const Icon(
+                  Icons.flutter_dash,
+                  color: Color(0xFF4F46E5),
+                  size: 32,
+                ),
                 const SizedBox(width: 12),
                 const Text(
                   'FlutterJS',
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF111827)),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF111827),
+                  ),
                 ),
               ],
             ),
@@ -189,14 +200,17 @@ class _LandingPageState extends State<LandingPage> {
           // Hide links on very small screens if needed, but for now we look fine
           if (MediaQuery.of(context).size.width > 700) ...[
             TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/docs'),
-                child: const Text('Documentation')),
+              onPressed: () => Navigator.pushNamed(context, '/docs'),
+              child: const Text('Documentation'),
+            ),
             TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/showcase'),
-                child: const Text('Showcase')),
+              onPressed: () => Navigator.pushNamed(context, '/showcase'),
+              child: const Text('Showcase'),
+            ),
             TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/blog'),
-                child: const Text('Blog')),
+              onPressed: () => Navigator.pushNamed(context, '/blog'),
+              child: const Text('Blog'),
+            ),
             const SizedBox(width: 16),
           ],
           ElevatedButton(
@@ -205,8 +219,10 @@ class _LandingPageState extends State<LandingPage> {
               backgroundColor: const Color(0xFF4F46E5),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             ),
-            child: const Text('Get Started',
-                style: TextStyle(color: Colors.white)),
+            child: const Text(
+              'Get Started',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -229,9 +245,10 @@ class _LandingPageState extends State<LandingPage> {
             child: const Text(
               "🚀 v0.0.1 is now available!",
               style: TextStyle(
-                  color: Color(0xFF4F46E5),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13),
+                color: Color(0xFF4F46E5),
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
             ),
           ),
           const SizedBox(height: 24),
@@ -269,10 +286,14 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () =>
                     _testHttp(), // Changed from navigation to HTTP test
                 style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 20,
+                  ),
                   textStyle: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 child: const Text('Test HTTP Request'),
               ),
@@ -282,12 +303,17 @@ class _LandingPageState extends State<LandingPage> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFF4B5563),
                   side: BorderSide(color: Colors.grey.shade300),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 20,
+                  ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   textStyle: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 child: const Text('View on GitHub'),
               ),
@@ -308,9 +334,10 @@ class _LandingPageState extends State<LandingPage> {
           const Text(
             'Why developers love FlutterJS',
             style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           const SizedBox(height: 16),
           const Text(
@@ -358,11 +385,12 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget _buildFeatureCard(
-      {required IconData icon,
-      required String title,
-      required String description,
-      required Color color}) {
+  Widget _buildFeatureCard({
+    required IconData icon,
+    required String title,
+    required String description,
+    required Color color,
+  }) {
     return Container(
       width: 280,
       padding: const EdgeInsets.all(24),
@@ -393,9 +421,10 @@ class _LandingPageState extends State<LandingPage> {
           Text(
             title,
             style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           const SizedBox(height: 12),
           Text(
@@ -446,18 +475,20 @@ class _CounterState extends State<Counter> {
             child: const Text(
               "Simple & Declarative",
               style: TextStyle(
-                  color: Color(0xFF4F46E5),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13),
+                color: Color(0xFF4F46E5),
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
             ),
           ),
           const SizedBox(height: 24),
           const Text(
             'Write Dart. Run everywhere.',
             style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           const SizedBox(height: 48),
           Center(
@@ -487,25 +518,31 @@ class _CounterState extends State<Counter> {
                           Row(
                             children: [
                               Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFFF5F56),
-                                      shape: BoxShape.circle)),
+                                width: 10,
+                                height: 10,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFFF5F56),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
                               const SizedBox(width: 8),
                               Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFFFFBD2E),
-                                      shape: BoxShape.circle)),
+                                width: 10,
+                                height: 10,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFFFBD2E),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
                               const SizedBox(width: 8),
                               Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: const BoxDecoration(
-                                      color: Color(0xFF27C93F),
-                                      shape: BoxShape.circle)),
+                                width: 10,
+                                height: 10,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF27C93F),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -529,19 +566,26 @@ class _CounterState extends State<Counter> {
                     child: Container(
                       padding: const EdgeInsets.all(24),
                       child: Center(
-                          child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text("Count: 0",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
-                          const SizedBox(height: 16),
-                          ElevatedButton(
-                              onPressed: () {}, child: const Text("Increment"))
-                        ],
-                      )),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              "Count: 0",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text("Increment"),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -561,9 +605,10 @@ class _CounterState extends State<Counter> {
           const Text(
             'Join the Community',
             style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           const SizedBox(height: 16),
           const Text(
@@ -575,21 +620,24 @@ class _CounterState extends State<Counter> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                  icon: const Icon(Icons.code, size: 32),
-                  onPressed: () {},
-                  color: Colors.indigo), // Placeholder for GitHub
+                icon: const Icon(Icons.code, size: 32),
+                onPressed: () {},
+                color: Colors.indigo,
+              ), // Placeholder for GitHub
               const SizedBox(width: 24),
               IconButton(
-                  icon: const Icon(Icons.chat_bubble, size: 32),
-                  onPressed: () {},
-                  color: Colors.indigo), // Placeholder for Discord
+                icon: const Icon(Icons.chat_bubble, size: 32),
+                onPressed: () {},
+                color: Colors.indigo,
+              ), // Placeholder for Discord
               const SizedBox(width: 24),
               IconButton(
-                  icon: const Icon(Icons.thumb_up, size: 32),
-                  onPressed: () {},
-                  color: Colors.indigo), // Placeholder for Twitter/X
+                icon: const Icon(Icons.thumb_up, size: 32),
+                onPressed: () {},
+                color: Colors.indigo,
+              ), // Placeholder for Twitter/X
             ],
-          )
+          ),
         ],
       ),
     );
@@ -614,20 +662,30 @@ class _CounterState extends State<Counter> {
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.flutter_dash,
-                              color: Colors.white, size: 24),
+                          Icon(
+                            Icons.flutter_dash,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                           SizedBox(width: 8),
-                          Text("FlutterJS",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "FlutterJS",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 16),
-                      Text("Write Flutter. Ship the Web.",
-                          style: TextStyle(
-                              color: Colors.grey.shade400, height: 1.5)),
+                      Text(
+                        "Write Flutter. Ship the Web.",
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                          height: 1.5,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(width: 24),
@@ -637,25 +695,35 @@ class _CounterState extends State<Counter> {
                       children: [
                         _buildFooterLinksColumn("Product", [
                           _FooterLink("Features", () {}),
-                          _FooterLink("Showcase",
-                              () => Navigator.pushNamed(context, '/showcase')),
+                          _FooterLink(
+                            "Showcase",
+                            () => Navigator.pushNamed(context, '/showcase'),
+                          ),
                           _FooterLink("Roadmap", () {}),
                         ]),
                         const SizedBox(width: 48),
                         _buildFooterLinksColumn("Resources", [
-                          _FooterLink("Documentation",
-                              () => Navigator.pushNamed(context, '/docs')),
+                          _FooterLink(
+                            "Documentation",
+                            () => Navigator.pushNamed(context, '/docs'),
+                          ),
                           _FooterLink("API Reference", () {}),
                           _FooterLink("Examples", () {}),
                         ]),
                         const SizedBox(width: 48),
                         _buildFooterLinksColumn("Company", [
-                          _FooterLink("About",
-                              () => Navigator.pushNamed(context, '/about')),
-                          _FooterLink("Blog",
-                              () => Navigator.pushNamed(context, '/blog')),
-                          _FooterLink("Contact",
-                              () => Navigator.pushNamed(context, '/contact')),
+                          _FooterLink(
+                            "About",
+                            () => Navigator.pushNamed(context, '/about'),
+                          ),
+                          _FooterLink(
+                            "Blog",
+                            () => Navigator.pushNamed(context, '/blog'),
+                          ),
+                          _FooterLink(
+                            "Contact",
+                            () => Navigator.pushNamed(context, '/contact'),
+                          ),
                         ]),
                       ],
                     ),
@@ -667,26 +735,31 @@ class _CounterState extends State<Counter> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("© 2026 FlutterJS Team. Apache 2.0 License.",
-                      style:
-                          TextStyle(color: Colors.grey.shade500, fontSize: 14)),
+                  Text(
+                    "© 2026 FlutterJS Team. Apache 2.0 License.",
+                    style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                  ),
                   Row(
                     children: [
                       InkWell(
-                          onTap: () => Navigator.pushNamed(context, '/privacy'),
-                          child: const Text("Privacy",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 14))),
+                        onTap: () => Navigator.pushNamed(context, '/privacy'),
+                        child: const Text(
+                          "Privacy",
+                          style: TextStyle(color: Colors.grey, fontSize: 14),
+                        ),
+                      ),
                       const SizedBox(width: 16),
                       InkWell(
-                          onTap: () => Navigator.pushNamed(context, '/terms'),
-                          child: const Text("Terms",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 14))),
+                        onTap: () => Navigator.pushNamed(context, '/terms'),
+                        child: const Text(
+                          "Terms",
+                          style: TextStyle(color: Colors.grey, fontSize: 14),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -698,21 +771,27 @@ class _CounterState extends State<Counter> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14)),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
         const SizedBox(height: 16),
-        ...links.map((link) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: InkWell(
-                onTap: link.onTap,
-                child: Text(link.title,
-                    style:
-                        TextStyle(color: Colors.grey.shade400, fontSize: 14)),
+        ...links.map(
+          (link) => Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: InkWell(
+              onTap: link.onTap,
+              child: Text(
+                link.title,
+                style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
               ),
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }

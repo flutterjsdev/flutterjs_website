@@ -46,8 +46,10 @@ class ContentPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 1000),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 48,
+                  ),
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,15 +93,19 @@ class ContentPage extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, '/'),
             child: Row(
               children: [
-                const Icon(Icons.flutter_dash,
-                    color: Color(0xFF4F46E5), size: 32),
+                const Icon(
+                  Icons.flutter_dash,
+                  color: Color(0xFF4F46E5),
+                  size: 32,
+                ),
                 const SizedBox(width: 12),
                 const Text(
                   'FlutterJS',
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF111827)),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF111827),
+                  ),
                 ),
               ],
             ),
@@ -126,8 +132,10 @@ class ContentPage extends StatelessWidget {
               backgroundColor: const Color(0xFF4F46E5),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             ),
-            child: const Text('Get Started',
-                style: TextStyle(color: Colors.white)),
+            child: const Text(
+              'Get Started',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -138,21 +146,29 @@ class ContentPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text("© 2026 FlutterJS Team.",
-            style: TextStyle(color: Colors.grey, fontSize: 14)),
+        const Text(
+          "© 2026 FlutterJS Team.",
+          style: TextStyle(color: Colors.grey, fontSize: 14),
+        ),
         Row(
           children: [
             InkWell(
-                onTap: () => Navigator.pushNamed(context, '/privacy'),
-                child: const Text("Privacy",
-                    style: TextStyle(color: Colors.grey, fontSize: 14))),
+              onTap: () => Navigator.pushNamed(context, '/privacy'),
+              child: const Text(
+                "Privacy",
+                style: TextStyle(color: Colors.grey, fontSize: 14),
+              ),
+            ),
             const SizedBox(width: 16),
             InkWell(
-                onTap: () => Navigator.pushNamed(context, '/terms'),
-                child: const Text("Terms",
-                    style: TextStyle(color: Colors.grey, fontSize: 14))),
+              onTap: () => Navigator.pushNamed(context, '/terms'),
+              child: const Text(
+                "Terms",
+                style: TextStyle(color: Colors.grey, fontSize: 14),
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }

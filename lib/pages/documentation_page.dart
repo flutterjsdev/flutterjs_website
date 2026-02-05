@@ -26,8 +26,11 @@ class DocumentationPage extends StatelessWidget {
           _buildSectionTitle('Getting Started'),
           const Text(
             'FlutterJS allows you to write standard Flutter code that compiles to lightweight, SEO-friendly JavaScript. Unlike Flutter Web (Canvas/WASM), FlutterJS renders to real HTML/DOM elements.',
-            style:
-                TextStyle(fontSize: 16, height: 1.6, color: Color(0xFF4B5563)),
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Color(0xFF4B5563),
+            ),
           ),
           const SizedBox(height: 24),
           _buildSubTitle('1. Create a new project'),
@@ -46,9 +49,10 @@ class DocumentationPage extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF111827)),
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF111827),
+        ),
       ),
     );
   }
@@ -59,9 +63,10 @@ class DocumentationPage extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF374151)),
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF374151),
+        ),
       ),
     );
   }
@@ -77,7 +82,10 @@ class DocumentationPage extends StatelessWidget {
       child: Text(
         code,
         style: const TextStyle(
-            fontFamily: 'Courier New', color: Color(0xFFE5E7EB), fontSize: 14),
+          fontFamily: 'Courier New',
+          color: Color(0xFFE5E7EB),
+          fontSize: 14,
+        ),
       ),
     );
   }

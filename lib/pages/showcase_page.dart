@@ -96,9 +96,10 @@ class ShowcasePage extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           const SizedBox(height: 8),
           Text(

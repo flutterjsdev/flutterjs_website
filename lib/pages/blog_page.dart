@@ -66,8 +66,10 @@ class BlogPage extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEEF2FF),
                   borderRadius: BorderRadius.circular(100),
@@ -75,9 +77,10 @@ class BlogPage extends StatelessWidget {
                 child: Text(
                   tag,
                   style: const TextStyle(
-                      color: Color(0xFF4F46E5),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12),
+                    color: Color(0xFF4F46E5),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -91,15 +94,19 @@ class BlogPage extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           const SizedBox(height: 12),
           Text(
             excerpt,
             style: const TextStyle(
-                color: Color(0xFF4B5563), fontSize: 16, height: 1.6),
+              color: Color(0xFF4B5563),
+              fontSize: 16,
+              height: 1.6,
+            ),
           ),
           const SizedBox(height: 20),
           TextButton(

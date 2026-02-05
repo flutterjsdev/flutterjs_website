@@ -27,29 +27,37 @@ class PrivacyPage extends StatelessWidget {
           Text(
             '1. Information We Collect',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           SizedBox(height: 16),
           Text(
             'We collect minimal information necessary to improve our documentation and website. This may include anonymous usage statistics and error reports.',
-            style:
-                TextStyle(fontSize: 16, height: 1.6, color: Color(0xFF4B5563)),
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Color(0xFF4B5563),
+            ),
           ),
           SizedBox(height: 32),
           Text(
             '2. How We Use Information',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF111827)),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
           ),
           SizedBox(height: 16),
           Text(
             'We use the collected information to analyze trends, administer the site, and gather demographic information about our user base as a whole.',
-            style:
-                TextStyle(fontSize: 16, height: 1.6, color: Color(0xFF4B5563)),
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Color(0xFF4B5563),
+            ),
           ),
         ],
       ),
