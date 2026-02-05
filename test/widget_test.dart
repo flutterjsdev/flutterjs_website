@@ -1,3 +1,7 @@
+// Copyright 2025 The FlutterJS Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 // // This is a basic Flutter widget test.
 // //
 // // To perform an interaction with a widget in your test, use the WidgetTester
@@ -15,10 +19,10 @@
 
 //     // Verify that the app loads (FlutterJS text appears at least once)
 //     expect(find.text('FlutterJS'), findsWidgets);
-    
+
 //     // Verify that the main content is present (hero headline)
 //     expect(find.textContaining('Build SEO-friendly'), findsOneWidget);
-    
+
 //     // Verify features section is present
 //     expect(find.text('Why FlutterJS?'), findsOneWidget);
 //   });
