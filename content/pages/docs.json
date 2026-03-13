@@ -1,0 +1,40 @@
+{
+  "hero": {
+    "title": "Documentation",
+    "subtitle": "Everything you need to build amazing web apps with FlutterJS"
+  },
+  "quickstart": {
+    "title": "Quick Start",
+    "steps": [
+      {
+        "title": "Install FlutterJS",
+        "code": "dart pub global activate flutterjs_tools"
+      },
+      {
+        "title": "Create Project",
+        "code": "flutterjs create my_app\ncd my_app"
+      },
+      {
+        "title": "Run Dev Server",
+        "code": "flutterjs run --to-js --serve"
+      }
+    ]
+  },
+  "guides": [
+    {
+      "title": "Getting Started",
+      "description": "Learn the basics of FlutterJS",
+      "link": "/docs/getting-started"
+    },
+    {
+      "title": "Widgets",
+      "description": "Understanding the widget system",
+      "link": "/docs/widgets"
+    },
+    {
+      "title": "State Management",
+      "description": "Managing state in your app",
+      "link": "/docs/state"
+    }
+  ]
+}

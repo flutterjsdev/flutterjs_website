@@ -1,9 +1,11 @@
 {
-  "packages": [
-
-  ],
-  "meta": {
-    "last_updated": "2026-01-14T21:45:00Z",
-    "total_packages": 0
+  "version": "1.0.0",
+  "updated_at": "2026-02-27T18:00:00Z",
+  "pages": {
+    "landing": "pages/landing.json",
+    "docs": "pages/docs.json",
+    "showcase": "pages/showcase.json",
+    "blog": "pages/blog.json",
+    "about": "pages/about.json"
   }
 }

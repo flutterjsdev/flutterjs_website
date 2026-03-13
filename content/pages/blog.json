@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "Blog",
+    "subtitle": "Latest news and updates from the FlutterJS team"
+  },
+  "posts": [
+    {
+      "title": "Introducing FlutterJS",
+      "slug": "introducing-flutterjs",
+      "date": "2026-02-27",
+      "author": "FlutterJS Team",
+      "excerpt": "We're excited to announce FlutterJS - bringing Flutter's widget system to the web.",
+      "tags": ["Announcement"],
+      "readTime": "5 min"
+    },
+    {
+      "title": "How FlutterJS Achieves Tiny Bundle Sizes",
+      "slug": "tiny-bundles",
+      "date": "2026-02-20",
+      "author": "FlutterJS Team",
+      "excerpt": "Learn how FlutterJS compiles Dart widgets to minimal JavaScript bundles.",
+      "tags": ["Technical", "Performance"],
+      "readTime": "8 min"
+    }
+  ]
+}

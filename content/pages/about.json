@@ -1,0 +1,66 @@
+{
+  "hero": {
+    "title": "About FlutterJS",
+    "subtitle": "Our mission is to bring Flutter's developer experience to the web"
+  },
+  "mission": {
+    "title": "Our Mission",
+    "description": "FlutterJS aims to bridge the gap between Flutter's powerful widget system and native web performance. We believe developers shouldn't have to choose between great DX and performance."
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "quarters": [
+      {
+        "quarter": "Q1 2026",
+        "status": "completed",
+        "items": [
+          "Initial release (v0.0.1)",
+          "Core widget compilation",
+          "SEO support",
+          "Material Design widgets"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "in_progress",
+        "items": [
+          "Hot reload support",
+          "Animation improvements",
+          "More Flutter plugins",
+          "Performance optimizations"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "items": [
+          "Server-side rendering (SSR)",
+          "PWA support",
+          "Advanced routing",
+          "i18n and localization"
+        ]
+      }
+    ]
+  },
+  "community": {
+    "title": "Join the Community",
+    "description": "FlutterJS is open source and community-driven. Contribute, ask questions, or just say hi!",
+    "links": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/flutterjsdev/flutterjs",
+        "icon": "code"
+      },
+      {
+        "platform": "Discord",
+        "url": "https://discord.gg/flutterjs",
+        "icon": "chat_bubble"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com/flutterjs",
+        "icon": "thumb_up"
+      }
+    ]
+  }
+}

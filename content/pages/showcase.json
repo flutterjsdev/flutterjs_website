@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "title": "Showcase",
+    "subtitle": "Amazing apps built with FlutterJS"
+  },
+  "projects": [
+    {
+      "title": "FlutterJS Website",
+      "description": "The official FlutterJS website - built with FlutterJS!",
+      "image": "/assets/showcase/website.png",
+      "url": "https://flutterjs.dev",
+      "github": "https://github.com/flutterjsdev/flutterjs_website",
+      "tags": ["Landing Page", "SEO", "Responsive"]
+    },
+    {
+      "title": "Material Demo",
+      "description": "Showcase of Material Design widgets",
+      "image": "/assets/showcase/material.png",
+      "github": "https://github.com/flutterjsdev/flutterjs/tree/master/examples/material_demo",
+      "tags": ["Material", "UI Components"]
+    }
+  ]
+}

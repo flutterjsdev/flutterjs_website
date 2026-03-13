@@ -1,0 +1,105 @@
+{
+  "hero": {
+    "title": "Build Native Web Apps\nwith the Power of Dart",
+    "subtitle": "Tiny bundles. Perfect SEO. Direct DOM rendering.",
+    "description": "Experience the developer experience of Flutter with the performance of native HTML & CSS.",
+    "buttons": [
+      {
+        "text": "Get Started",
+        "route": "/docs",
+        "type": "primary"
+      },
+      {
+        "text": "View Showcase",
+        "route": "/showcase",
+        "type": "secondary"
+      }
+    ]
+  },
+  "features": {
+    "title": "Why developers love FlutterJS",
+    "subtitle": "Everything you need to build production-ready web applications.",
+    "items": [
+      {
+        "icon": "flash_on",
+        "title": "Blazing Fast",
+        "description": "Optimized for instant load times with bundles starting at just 50KB gzipped.",
+        "color": "orange"
+      },
+      {
+        "icon": "search",
+        "title": "SEO Optimized",
+        "description": "Content is rendered as semantic HTML, making it fully indexable by search engines.",
+        "color": "green"
+      },
+      {
+        "icon": "code",
+        "title": "Type Safe",
+        "description": "Leverage the full power of Dart's sound null safety and strong typing.",
+        "color": "blue"
+      },
+      {
+        "icon": "widgets",
+        "title": "Widget System",
+        "description": "Use the familiar Flutter widget API to compose your UI declaratively.",
+        "color": "indigo"
+      }
+    ]
+  },
+  "code_preview": {
+    "badge": "Simple & Declarative",
+    "title": "Write Dart. Run everywhere.",
+    "code": "class Counter extends StatefulWidget {\n  @override\n  State<Counter> createState() => _CounterState();\n}\n\nclass _CounterState extends State<Counter> {\n  int count = 0;\n\n  @override\n  Widget build(BuildContext context) {\n    return Column(\n      children: [\n        Text('Count: $count'),\n        ElevatedButton(\n           onPressed: () => setState(() => count++),\n           child: Text('Increment'),\n        ),\n      ],\n    );\n  }\n}"
+  },
+  "community": {
+    "title": "Join the Community",
+    "subtitle": "Open source and built for the future web.",
+    "links": [
+      {
+        "icon": "code",
+        "url": "https://github.com/flutterjsdev/flutterjs",
+        "label": "GitHub"
+      },
+      {
+        "icon": "chat_bubble",
+        "url": "https://discord.gg/flutterjs",
+        "label": "Discord"
+      },
+      {
+        "icon": "thumb_up",
+        "url": "https://twitter.com/flutterjs",
+        "label": "Twitter"
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Write Flutter. Ship the Web.",
+    "copyright": "© 2026 FlutterJS Team. Apache 2.0 License.",
+    "sections": [
+      {
+        "title": "Product",
+        "links": [
+          { "text": "Features", "route": "/" },
+          { "text": "Showcase", "route": "/showcase" },
+          { "text": "Roadmap", "route": "/about" }
+        ]
+      },
+      {
+        "title": "Resources",
+        "links": [
+          { "text": "Documentation", "route": "/docs" },
+          { "text": "API Reference", "route": "/docs" },
+          { "text": "Examples", "route": "/showcase" }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          { "text": "About", "route": "/about" },
+          { "text": "Blog", "route": "/blog" },
+          { "text": "Contact", "route": "/contact" }
+        ]
+      }
+    ]
+  }
+}

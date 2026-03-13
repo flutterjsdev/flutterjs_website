@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutterjs_seo/flutterjs_seo.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'pages/documentation_page.dart';
 import 'pages/showcase_page.dart';
@@ -13,6 +12,9 @@ import 'pages/about_page.dart';
 import 'pages/contact_page.dart';
 import 'pages/privacy_page.dart';
 import 'pages/terms_page.dart';
+import 'services/github_service.dart';
+import 'services/version_manager.dart';
+import 'services/content_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -73,59 +75,103 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   String _seoTitle = "FlutterJS - The Native Web Framework";
+  final GitHubService _githubService = GitHubService();
+  final VersionManager _versionManager = VersionManager();
+  final ContentService _contentService = ContentService();
 
-  Future<void> _launchUrl(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      debugPrint('Could not launch $url');
+  // Dynamic content from GitHub
+  Map<String, dynamic>? _repoStats;
+  List<dynamic>? _recentCommits;
+  String? _latestVersion;
+  String? _versionSource; // 'local' or 'github'
+  Map<String, dynamic>? _pageContent; // Page content from registry
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadGitHubData();
+  }
+
+  Future<void> _loadGitHubData() async {
+    try {
+      // Get the latest version (compares local vs GitHub)
+      final versionInfo = await _versionManager.getLatestVersion();
+      final version = versionInfo['version'];
+      final source = versionInfo['source'];
+
+      print('Using version: $version from $source');
+
+      // Fetch page content from GitHub or local
+      final pageContent = await _contentService.fetchPageContent('landing');
+      print('Page content loaded: ${pageContent.keys}');
+
+      // Fetch repository statistics
+      final stats = await _githubService.fetchRepoStats();
+
+      // Fetch recent commits
+      final commits = await _githubService.fetchCommits(limit: 5);
+
+      setState(() {
+        _pageContent = pageContent;
+        _repoStats = stats;
+        _recentCommits = commits;
+        _latestVersion = version;
+        _versionSource = source;
+        _isLoading = false;
+      });
+    } catch (e) {
+      print('Error loading GitHub data: $e');
+      setState(() {
+        _isLoading = false;
+        _latestVersion = VersionManager.localVersion;
+        _versionSource = 'local';
+      });
     }
   }
 
-  Future<void> _testHttp() async {
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
     try {
-      final response = await http.get(
-        Uri.parse('https://jsonplaceholder.typicode.com/todos/1'),
-      );
-      debugPrint('HTTP Response: ${response.statusCode}');
-      debugPrint('Body: ${response.body}');
-
-      // Simple visual feedback
-      if (mounted) {
-        showDialog(
-          context: context,
-          builder: (c) => AlertDialog(
-            title: const Text('HTTP Test'),
-            content: Text(
-              'Status: ${response.statusCode}\nBody: ${response.body}',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(c),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
+      await launchUrl(uri);
     } catch (e) {
-      debugPrint('HTTP Error: $e');
-      if (mounted) {
-        showDialog(
-          context: context,
-          builder: (c) => AlertDialog(
-            title: const Text('HTTP Error'),
-            content: Text(e.toString()),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(c),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
+      print('Could not launch URL: $e');
+    }
+  }
+
+  IconData _getIconData(String iconName) {
+    switch (iconName) {
+      case 'flash_on':
+        return Icons.flash_on;
+      case 'search':
+        return Icons.search;
+      case 'code':
+        return Icons.code;
+      case 'widgets':
+        return Icons.widgets;
+      case 'chat_bubble':
+        return Icons.chat_bubble;
+      case 'thumb_up':
+        return Icons.thumb_up;
+      default:
+        return Icons.star;
+    }
+  }
+
+  Color _getColor(String colorName) {
+    switch (colorName) {
+      case 'orange':
+        return Colors.orange;
+      case 'green':
+        return Colors.green;
+      case 'blue':
+        return Colors.blue;
+      case 'indigo':
+        return Colors.indigo;
+      case 'amber':
+        return Colors.amber;
+      default:
+        return Colors.blue;
     }
   }
 
@@ -152,8 +198,11 @@ class _LandingPageState extends State<LandingPage> {
                 child: Column(
                   children: [
                     _buildHeroSection(),
+                    if (_repoStats != null) _buildStatsSection(),
                     _buildFeaturesSection(),
                     _buildCodePreviewSection(),
+                    if (_recentCommits != null && _recentCommits!.isNotEmpty)
+                      _buildRecentActivitySection(),
                     _buildCommunitySection(),
                     _buildFooter(),
                   ],
@@ -236,26 +285,46 @@ class _LandingPageState extends State<LandingPage> {
       color: Colors.white,
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFFEEF2FF),
-              borderRadius: BorderRadius.circular(100),
+          if (_isLoading)
+            const CircularProgressIndicator()
+          else
+            Column(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEEF2FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Text(
+                    "🚀 $_latestVersion is now available!",
+                    style: const TextStyle(
+                      color: Color(0xFF4F46E5),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+                if (_versionSource != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      'Source: ${_versionSource == 'local' ? '📦 Local' : '🌐 GitHub'}',
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Color(0xFF6B7280),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            child: const Text(
-              "🚀 v0.0.1 is now available!",
-              style: TextStyle(
-                color: Color(0xFF4F46E5),
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-              ),
-            ),
-          ),
           const SizedBox(height: 24),
-          const Text(
-            'Build Native Web Apps\nwith the Power of Dart',
+          Text(
+            _pageContent?['hero']?['title'] ??
+                'Build Native Web Apps\nwith the Power of Dart',
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 48,
               fontWeight: FontWeight.w800,
               color: Color(0xFF111827), // Gray 900
@@ -264,12 +333,12 @@ class _LandingPageState extends State<LandingPage> {
             ),
           ),
           const SizedBox(height: 24),
-          const SizedBox(
+          SizedBox(
             width: 700,
             child: Text(
-              'Tiny bundles. Perfect SEO. Direct DOM rendering.\nExperience the developer experience of Flutter with the performance of native HTML & CSS.',
+              '${_pageContent?['hero']?['subtitle'] ?? 'Tiny bundles. Perfect SEO. Direct DOM rendering.'}\n${_pageContent?['hero']?['description'] ?? 'Experience the developer experience of Flutter with the performance of native HTML & CSS.'}',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 color: Color(0xFF6B7280), // Gray 500
                 height: 1.5,
@@ -283,8 +352,7 @@ class _LandingPageState extends State<LandingPage> {
             alignment: WrapAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () =>
-                    _testHttp(), // Changed from navigation to HTTP test
+                onPressed: () => Navigator.pushNamed(context, '/docs'),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 32,
@@ -295,11 +363,10 @@ class _LandingPageState extends State<LandingPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: const Text('Test HTTP Request'),
+                child: const Text('Get Started'),
               ),
               OutlinedButton(
-                onPressed: () =>
-                    _launchUrl('https://github.com/flutterjsdev/flutterjs'),
+                onPressed: () => Navigator.pushNamed(context, '/showcase'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFF4B5563),
                   side: BorderSide(color: Colors.grey.shade300),
@@ -315,7 +382,7 @@ class _LandingPageState extends State<LandingPage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                child: const Text('View on GitHub'),
+                child: const Text('View Showcase'),
               ),
             ],
           ),
@@ -324,61 +391,244 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget _buildFeaturesSection() {
+  Widget _buildStatsSection() {
+    final stats = _repoStats!;
+    final stars = stats['stargazers_count'] ?? 0;
+    final forks = stats['forks_count'] ?? 0;
+    final watchers = stats['watchers_count'] ?? 0;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
-      color: const Color(0xFFF9FAFB), // Gray 50
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+      color: Colors.white,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 48,
+        runSpacing: 24,
+        children: [
+          _buildStatItem(
+            icon: Icons.star_border,
+            value: _formatNumber(stars),
+            label: 'GitHub Stars',
+            color: Colors.amber,
+          ),
+          _buildStatItem(
+            icon: Icons.fork_right,
+            value: _formatNumber(forks),
+            label: 'Forks',
+            color: Colors.blue,
+          ),
+          _buildStatItem(
+            icon: Icons.visibility_outlined,
+            value: _formatNumber(watchers),
+            label: 'Watchers',
+            color: Colors.green,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatItem({
+    required IconData icon,
+    required String value,
+    required String label,
+    required Color color,
+  }) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, color: color, size: 28),
+        const SizedBox(width: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF111827),
+              ),
+            ),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color(0xFF6B7280),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  String _formatNumber(int number) {
+    if (number >= 1000) {
+      return '${(number / 1000).toStringAsFixed(1)}k';
+    }
+    return number.toString();
+  }
+
+  Widget _buildRecentActivitySection() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24),
+      color: const Color(0xFFF9FAFB),
       child: Column(
         children: [
           const Text(
-            'Why developers love FlutterJS',
+            'Recent Activity',
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Color(0xFF111827),
             ),
           ),
           const SizedBox(height: 16),
           const Text(
-            'Everything you need to build production-ready web applications.',
-            style: TextStyle(fontSize: 18, color: Color(0xFF6B7280)),
+            'Latest updates from our repository',
+            style: TextStyle(color: Color(0xFF6B7280), fontSize: 16),
+          ),
+          const SizedBox(height: 32),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Column(
+              children: _recentCommits!.take(3).map((commit) {
+                final message = commit['commit']?['message'] ?? 'No message';
+                final author =
+                    commit['commit']?['author']?['name'] ?? 'Unknown';
+                final date = commit['commit']?['author']?['date'] ?? '';
+                final sha = commit['sha']?.substring(0, 7) ?? '';
+
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFEEF2FF),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.commit,
+                          color: Color(0xFF4F46E5),
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              message.split('\n').first,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF111827),
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '$author • $sha',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color(0xFF6B7280),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeaturesSection() {
+    final features = _pageContent?['features'];
+    final featuresList = features?['items'] as List<dynamic>? ?? [];
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+      color: const Color(0xFF9FAFB), // Gray 50
+      child: Column(
+        children: [
+          Text(
+            features?['title'] ?? 'Why developers love FlutterJS',
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF111827),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            features?['subtitle'] ??
+                'Everything you need to build production-ready web applications.',
+            style: const TextStyle(fontSize: 18, color: Color(0xFF6B7280)),
           ),
           const SizedBox(height: 64),
           Wrap(
             spacing: 32,
             runSpacing: 32,
             alignment: WrapAlignment.center,
-            children: [
-              _buildFeatureCard(
-                icon: Icons.flash_on,
-                title: 'Blazing Fast',
-                description:
-                    'Optimized for instant load times with bundles starting at just 50KB gzipped.',
-                color: Colors.orange,
-              ),
-              _buildFeatureCard(
-                icon: Icons.search,
-                title: 'SEO Optimized',
-                description:
-                    'Content is rendered as semantic HTML, making it fully indexable by search engines.',
-                color: Colors.green,
-              ),
-              _buildFeatureCard(
-                icon: Icons.code,
-                title: 'Type Safe',
-                description:
-                    'Leverage the full power of Dart\'s sound null safety and strong typing.',
-                color: Colors.blue,
-              ),
-              _buildFeatureCard(
-                icon: Icons.widgets,
-                title: 'Widget System',
-                description:
-                    'Use the familiar Flutter widget API to compose your UI declaratively.',
-                color: Colors.indigo,
-              ),
-            ],
+            children: featuresList.isNotEmpty
+                ? featuresList.map((feature) {
+                    return _buildFeatureCard(
+                      icon: _getIconData(feature['icon'] ?? 'flash_on'),
+                      title: feature['title'] ?? '',
+                      description: feature['description'] ?? '',
+                      color: _getColor(feature['color'] ?? 'blue'),
+                    );
+                  }).toList()
+                : [
+                    _buildFeatureCard(
+                      icon: Icons.flash_on,
+                      title: 'Blazing Fast',
+                      description:
+                          'Optimized for instant load times with bundles starting at just 50KB gzipped.',
+                      color: Colors.orange,
+                    ),
+                    _buildFeatureCard(
+                      icon: Icons.search,
+                      title: 'SEO Optimized',
+                      description:
+                          'Content is rendered as semantic HTML, making it fully indexable by search engines.',
+                      color: Colors.green,
+                    ),
+                    _buildFeatureCard(
+                      icon: Icons.code,
+                      title: 'Type Safe',
+                      description:
+                          'Leverage the full power of Dart\'s sound null safety and strong typing.',
+                      color: Colors.blue,
+                    ),
+                    _buildFeatureCard(
+                      icon: Icons.widgets,
+                      title: 'Widget System',
+                      description:
+                          'Use the familiar Flutter widget API to compose your UI declaratively.',
+                      color: Colors.indigo,
+                    ),
+                  ],
           ),
         ],
       ),
@@ -621,21 +871,22 @@ class _CounterState extends State<Counter> {
             children: [
               IconButton(
                 icon: const Icon(Icons.code, size: 32),
-                onPressed: () {},
+                onPressed: () =>
+                    _launchUrl('https://github.com/flutterjsdev/flutterjs.git'),
                 color: Colors.indigo,
-              ), // Placeholder for GitHub
+              ),
               const SizedBox(width: 24),
               IconButton(
                 icon: const Icon(Icons.chat_bubble, size: 32),
-                onPressed: () {},
+                onPressed: () => _launchUrl('https://discord.gg/flutterjs'),
                 color: Colors.indigo,
-              ), // Placeholder for Discord
+              ),
               const SizedBox(width: 24),
               IconButton(
                 icon: const Icon(Icons.thumb_up, size: 32),
-                onPressed: () {},
+                onPressed: () => _launchUrl('https://twitter.com/flutterjs'),
                 color: Colors.indigo,
-              ), // Placeholder for Twitter/X
+              ),
             ],
           ),
         ],
